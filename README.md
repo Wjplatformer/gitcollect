@@ -13,4 +13,4 @@ Just make a pull request.
 
 ## License
 
-Gitcollect is under the [MIT license](https://github.com/LogSkele/gitcollect/blob/master/LICENSE
+Gitcollect is under the [MIT license](https://github.com/LogSkele/gitcollect/blob/master/LICENSE)
