@@ -61,3 +61,44 @@ def pr_closed(repo_link):
   soup = BeautifulSoup(page.content, 'html.parser')
   e = soup.find(class_='btn-link selected').get_text()
   print(f"{e} pull requests closed 🟥") #blank space go brrr
+
+def detect_license(repo_link):
+  """
+  Detects if the repo has a license
+  """
+  page = requests.get(repo_link)
+  soup = BeautifulSoup(page.content, 'html.parser')
+  try:
+    e = soup.find(title = "LICENSE").get_text()
+    print("This repo does have a license 📜")
+  except: #it returns none
+    print("This repo does not have a license")
+
+def branches(repo_link):
+  """
+  Gets how many branches a repo has
+  """
+  page = requests.get(repo_link)
+  soup = BeautifulSoup(page.content, 'html.parser')
+  e = soup.find(class_ = "Link--primary no-underline").get_text()
+  print(e)
+
+def tags(repo_link):
+  """
+  Gets how many tags a repo has
+  """
+  page = requests.get(repo_link)
+  soup = BeautifulSoup(page.content, 'html.parser')
+  e = soup.find(class_ = "ml-3 Link--primary no-underline").get_text()
+  print(e)
+
+def last_commit(repo_link):
+  """
+  Gets the date and the commit number of the last commit to the repo
+
+  If the date is today, that means the commit was made less than 24 hours ago
+  """
+  page = requests.get(repo_link)
+  soup = BeautifulSoup(page.content, 'html.parser')
+  e = soup.find(class_ = "d-flex flex-auto flex-justify-end ml-3 flex-items-baseline").get_text()
+  print(e)
