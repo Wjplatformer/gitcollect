@@ -1,4 +1,3 @@
-from xml.dom.minidom import Attr
 from bs4 import BeautifulSoup
 import requests
   
@@ -52,7 +51,6 @@ def issues_closed(repo_link):
     print(f"{e} (issues) 🔴") #don't know why there's so many blank space hmmmm
   except AttributeError:
     print("Hmm, you are probably trying to detect a private repo or a repo that does not exist.")
-
 
 def pr_open(repo_link):
   """
@@ -120,7 +118,6 @@ def recent_commit(repo_link):
   except AttributeError:
     print("Hmm, you are probably trying to detect a private repo or a repo that does not exist.")
 
-recent_commit('https://github.com/google/material-design-icons')
 def license(repo_link):
   """
   Gets the license type
