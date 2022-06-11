@@ -1,3 +1,4 @@
+from xml.dom.minidom import Attr
 from bs4 import BeautifulSoup
 import requests
   
@@ -5,100 +6,156 @@ def repo_desc(repo_link):
   """
   Gets the repo's description
   """
-  page = requests.get(repo_link)
-  soup = BeautifulSoup(page.content, 'html.parser')
-  e = soup.find(class_="f4 my-3").get_text()
-  print(e)
+  try:
+    page = requests.get(repo_link)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    e = soup.find(class_="f4 my-3").get_text()
+    print(e)
+  except AttributeError:
+    print("Hmm, you are probably trying to detect a private repo or a repo that does not exist.")
 
 def repo_stargazers(repo_link):
   """
   Gets the number of stargazers
   """
-  page = requests.get(repo_link)
-  soup = BeautifulSoup(page.content, 'html.parser')
-  e = soup.find(class_="Counter js-social-count").get_text()
-  print(f"{e} stargazers ⭐")
+  try:
+    page = requests.get(repo_link)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    e = soup.find(class_="Counter js-social-count").get_text()
+    print(f"{e} stargazers ⭐")
+  except AttributeError:
+    print("Hmm, you are probably trying to detect a private repo or a repo that does not exist.")
 
 def issues_open(repo_link):
   """
   Gets the number of issues open
   """
-  page = requests.get(repo_link)
-  soup = BeautifulSoup(page.content, 'html.parser')
-  e = soup.find_all(class_='Counter')[3].get_text()
-  print(f"{e} issues open 🟢")
+  try:
+    page = requests.get(repo_link)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    e = soup.find_all(class_='Counter')[3].get_text()
+    print(f"{e} issues open 🟢")
+  except AttributeError:
+    print("Hmm, you are probably trying to detect a private repo or a repo that does not exist.")
 
 def issues_closed(repo_link):
   """
   Gets the number of issues open
   """
-  if repo_link.endswith("/"):
-    page = requests.get(f"{repo_link}issues?q=is%3Aissue+is%3Aclosed") #hmmm
-  else:
-    page = requests.get(f"{repo_link}/issues?q=is%3Aissue+is%3Aclosed")
-  soup = BeautifulSoup(page.content, 'html.parser')
-  e = soup.find(class_='btn-link selected').get_text()
-  print(f"{e} (issues) 🔴") #don't know why there's so many blank space hmmmm
+  try:
+    if repo_link.endswith("/"):
+      page = requests.get(f"{repo_link}issues?q=is%3Aissue+is%3Aclosed") #hmmm
+    else:
+      page = requests.get(f"{repo_link}/issues?q=is%3Aissue+is%3Aclosed")
+    soup = BeautifulSoup(page.content, 'html.parser')
+    e = soup.find(class_='btn-link selected').get_text()
+    print(f"{e} (issues) 🔴") #don't know why there's so many blank space hmmmm
+  except AttributeError:
+    print("Hmm, you are probably trying to detect a private repo or a repo that does not exist.")
 
 
 def pr_open(repo_link):
   """
   Gets the number of pull requests open
   """
-  page = requests.get(repo_link)
-  soup = BeautifulSoup(page.content, 'html.parser')
-  e = soup.find_all(class_='Counter')[4].get_text()
-  print(f"{e} pull requests open 🟩")
+  try:
+    page = requests.get(repo_link)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    e = soup.find_all(class_='Counter')[4].get_text()
+    print(f"{e} pull requests open 🟩")
+  except AttributeError:
+    print("Hmm, you are probably trying to detect a private repo or a repo that does not exist.")
 
 def pr_closed(repo_link):
   """
   Gets the number of pull requests open
   """
-  if repo_link.endswith("/"):
-    page = requests.get(f"{repo_link}pulls?q=is%3Apr+is%3Aclosed")
-  else:
-    page = requests.get(f"{repo_link}/pulls?q=is%3Apr+is%3Aclosed")
-  soup = BeautifulSoup(page.content, 'html.parser')
-  e = soup.find(class_='btn-link selected').get_text()
-  print(f"{e} pull requests closed 🟥") #blank space go brrr
-
-def detect_license(repo_link):
-  """
-  Detects if the repo has a license
-  """
-  page = requests.get(repo_link)
-  soup = BeautifulSoup(page.content, 'html.parser')
   try:
-    e = soup.find(title = "LICENSE").get_text()
-    print("This repo does have a license 📜")
-  except: #it returns none
-    print("This repo does not have a license")
+    if repo_link.endswith("/"):
+      page = requests.get(f"{repo_link}pulls?q=is%3Apr+is%3Aclosed")
+    else:
+      page = requests.get(f"{repo_link}/pulls?q=is%3Apr+is%3Aclosed")
+    soup = BeautifulSoup(page.content, 'html.parser')
+    e = soup.find(class_='btn-link selected').get_text()
+    print(f"{e} pull requests closed 🟥") #blank space go brrr
+  except AttributeError:
+    print("Hmm, you are probably trying to detect a private repo or a repo that does not exist.")
 
 def branches(repo_link):
   """
   Gets how many branches a repo has
   """
-  page = requests.get(repo_link)
-  soup = BeautifulSoup(page.content, 'html.parser')
-  e = soup.find(class_ = "Link--primary no-underline").get_text()
-  print(e)
+  try:
+    page = requests.get(repo_link)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    e = soup.find(class_ = "Link--primary no-underline").get_text()
+    print(e)
+  except AttributeError:
+    print("Hmm, you are probably trying to detect a private repo or a repo that does not exist.")
 
 def tags(repo_link):
   """
   Gets how many tags a repo has
   """
-  page = requests.get(repo_link)
-  soup = BeautifulSoup(page.content, 'html.parser')
-  e = soup.find(class_ = "ml-3 Link--primary no-underline").get_text()
-  print(e)
+  try:
+    page = requests.get(repo_link)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    e = soup.find(class_ = "ml-3 Link--primary no-underline").get_text()
+    print(e)
+  except AttributeError:
+    print("Hmm, you are probably trying to detect a private repo or a repo that does not exist.")
 
-def last_commit(repo_link):
+def recent_commit(repo_link):
   """
-  Gets the date and the commit number of the last commit to the repo
+  Gets the date, commit name, and the user who commited the most recent commit to the repo
 
   If the date is today, that means the commit was made less than 24 hours ago
   """
-  page = requests.get(repo_link)
-  soup = BeautifulSoup(page.content, 'html.parser')
-  e = soup.find(class_ = "d-flex flex-auto flex-justify-end ml-3 flex-items-baseline").get_text()
-  print(e)
+  try:
+    page = requests.get(repo_link)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    e = soup.find(class_ = "d-flex flex-auto flex-justify-end ml-3 flex-items-baseline").get_text()
+    f = soup.find(class_ = "css-truncate css-truncate-overflow color-fg-muted ").get_text()
+    print(f"{e}{f}")
+  except AttributeError:
+    print("Hmm, you are probably trying to detect a private repo or a repo that does not exist.")
+
+recent_commit('https://github.com/google/material-design-icons')
+def license(repo_link):
+  """
+  Gets the license type
+  """
+  try:
+    page = requests.get(repo_link)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    e = soup.find(class_ = "Link--muted").get_text()
+    if "Readme" in e: #lol
+      print("This repo has no license :P")
+    else:
+      print(e)
+  except AttributeError:
+    print("Hmm, you are probably trying to detect a private repo or a repo that does not exist.")
+
+def forks(repo_link):
+  """
+  Gets the forks for the repo
+  """
+  try:
+    page = requests.get(repo_link)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    e = soup.find(class_ = "BorderGrid-cell").get_text()
+    print(e)
+  except AttributeError:
+    print("Hmm, you are probably trying to detect a private repo or a repo that does not exist.")
+
+def default_branch(repo_link):
+  """
+  Gets the default branch for the repo
+  """
+  try:
+    page = requests.get(repo_link)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    e = soup.find(class_ = "btn css-truncate").get_text()
+    print(e)
+  except AttributeError:
+    print("Hmm, you are probably trying to detect a private repo or a repo that does not exist.")
