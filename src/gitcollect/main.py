@@ -1,6 +1,11 @@
 from bs4 import BeautifulSoup
-import requests
-  
+import requests, datetime, sys, os
+
+#hmmmm needed?
+os.system('pip install bs4')
+os.system('pip install requests')
+os.system('pip install datetime')
+
 def repo_desc(repo_link):
   """
   Gets the repo's description
@@ -51,6 +56,7 @@ def issues_closed(repo_link):
     print(f"{e} (issues) 🔴") #don't know why there's so many blank space hmmmm
   except AttributeError:
     print("Hmm, you are probably trying to detect a private repo or a repo that does not exist.")
+
 
 def pr_open(repo_link):
   """
@@ -156,3 +162,19 @@ def default_branch(repo_link):
     print(e)
   except AttributeError:
     print("Hmm, you are probably trying to detect a private repo or a repo that does not exist.")
+
+def commits(github_user, year):
+  """
+  It gets your contributions during a specific year
+  """
+  try:
+    current_year = datetime.datetime.today().year
+    if year > current_year:
+      print("Hey! Trying to look into the future I see...")
+      sys.exit()
+    page = requests.get(f"https://github.com/{github_user}?tab=overview&from={year}-12-01&to={year}-12-31")
+    soup = BeautifulSoup(page.content, 'html.parser')
+    e = soup.find(class_ = "f4 text-normal mb-2").get_text()
+    print(e)
+  except AttributeError:
+    print("Hmm, did you enter the github username correctly?")
