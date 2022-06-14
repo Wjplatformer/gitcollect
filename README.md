@@ -8,6 +8,10 @@
 ## How to Use?
 
 ```
+pip install -r requirements.txt
+```
+
+```
 pip install gitcollect
 ```
 
