@@ -1,10 +1,5 @@
 from bs4 import BeautifulSoup
-import requests, datetime, sys, os
-
-#hmmmm needed?
-os.system('pip install bs4')
-os.system('pip install requests')
-os.system('pip install datetime')
+import requests, datetime, sys
 
 def repo_desc(repo_link):
   """
@@ -178,3 +173,15 @@ def commits(github_user, year):
     print(e)
   except AttributeError:
     print("Hmm, did you enter the github username correctly?")
+
+def releases(repo_link):
+  """
+  Gets the number of releases for a repo
+  """
+  try:
+    page = requests.get(repo_link)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    e = soup.find(class_ = "h4 mb-3").get_text()
+    print(e)
+  except AttributeError:
+    print("Hmm, you are probably trying to detect a private repo or a repo that does not exist.")
