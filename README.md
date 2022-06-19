@@ -1,8 +1,5 @@
 <h1 align="center">gitcollect 🪙</h1>
 
-<h4 align="center">still in progress</h4>
-
-
 <h4 align="center">Gets github information by web scraping. Inspired by <a href="https://github.com/kokonut27/Git-API/">Git-Api</a>.</h4>
 
 ## How to Use?
