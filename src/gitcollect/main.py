@@ -67,7 +67,7 @@ def pr_open(repo_link):
 
 def pr_closed(repo_link):
   """
-  Gets the number of pull requests open
+  Gets the number of pull requests closed
   """
   try:
     if repo_link.endswith("/"):
