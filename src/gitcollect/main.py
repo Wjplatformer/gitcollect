@@ -163,7 +163,7 @@ def commits(github_user, year):
   It gets your contributions during a specific year
   """
   try:
-    current_year = datetime.datetime.today().year
+    current_year = datetime.datetime.now().year
     if year > current_year:
       print("Hey! Trying to look into the future I see...")
       sys.exit()
