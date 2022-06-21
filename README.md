@@ -23,9 +23,10 @@ should get
 ℹ it gets github info
 ```
 
-## Documentation
+## Wiki
+>https://github.com/LogSkele/gitcollect/wiki
 
-Maybe I'll add one...?
+it has more info on it (thanks to [@Wjplatformer](https://github.com/Wjplatformer))
 
 ## Contributing
 
