@@ -39,7 +39,7 @@ def issues_open(repo_link):
 
 def issues_closed(repo_link):
   """
-  Gets the number of issues open
+  Gets the number of issues closed
   """
   try:
     if repo_link.endswith("/"):
