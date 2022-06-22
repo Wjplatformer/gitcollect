@@ -8,8 +8,7 @@ def repo_desc(repo_link):
   try:
     page = requests.get(repo_link)
     soup = BeautifulSoup(page.content, 'html.parser')
-    e = soup.find(class_="f4 my-3").get_text()
-    return e
+    return soup.find(class_="f4 my-3").get_text()
   except AttributeError:
     return "Hmm, you are probably trying to detect a private repo or a repo that does not exist."
 
@@ -87,8 +86,7 @@ def branches(repo_link):
   try:
     page = requests.get(repo_link)
     soup = BeautifulSoup(page.content, 'html.parser')
-    e = soup.find(class_ = "Link--primary no-underline").get_text()
-    return e
+    return soup.find(class_ = "Link--primary no-underline").get_text()
   except AttributeError:
     return "Hmm, you are probably trying to detect a private repo or a repo that does not exist."
 
@@ -99,8 +97,7 @@ def tags(repo_link):
   try:
     page = requests.get(repo_link)
     soup = BeautifulSoup(page.content, 'html.parser')
-    e = soup.find(class_ = "ml-3 Link--primary no-underline").get_text()
-    return e
+    return soup.find(class_ = "ml-3 Link--primary no-underline").get_text()
   except AttributeError:
     return "Hmm, you are probably trying to detect a private repo or a repo that does not exist."
 
@@ -127,10 +124,7 @@ def license(repo_link):
     page = requests.get(repo_link)
     soup = BeautifulSoup(page.content, 'html.parser')
     e = soup.find(class_ = "Link--muted").get_text()
-    if "Readme" in e: #lol
-      return "This repo has no license :P"
-    else:
-      return e
+    return "This repo has no license :P" if "Readme" in e else e
   except AttributeError:
     return "Hmm, you are probably trying to detect a private repo or a repo that does not exist."
 
@@ -141,8 +135,7 @@ def forks(repo_link):
   try:
     page = requests.get(repo_link)
     soup = BeautifulSoup(page.content, 'html.parser')
-    e = soup.find(class_ = "BorderGrid-cell").get_text()
-    return e
+    return soup.find(class_ = "BorderGrid-cell").get_text()
   except AttributeError:
     return "Hmm, you are probably trying to detect a private repo or a repo that does not exist."
 
@@ -153,8 +146,7 @@ def default_branch(repo_link):
   try:
     page = requests.get(repo_link)
     soup = BeautifulSoup(page.content, 'html.parser')
-    e = soup.find(class_ = "btn css-truncate").get_text()
-    return e
+    return soup.find(class_ = "btn css-truncate").get_text()
   except AttributeError:
     return "Hmm, you are probably trying to detect a private repo or a repo that does not exist."
 
@@ -163,14 +155,12 @@ def commits(github_user, year):
   It gets your contributions during a specific year
   """
   try:
-    current_year = datetime.datetime.today().year
+    current_year = datetime.datetime.now().year
     if year > current_year:
       return "Hey! Trying to look into the future I see..."
-      sys.exit()
     page = requests.get(f"https://github.com/{github_user}?tab=overview&from={year}-12-01&to={year}-12-31")
     soup = BeautifulSoup(page.content, 'html.parser')
-    e = soup.find(class_ = "f4 text-normal mb-2").get_text()
-    return e
+    return soup.find(class_ = "f4 text-normal mb-2").get_text()
   except AttributeError:
     return "Hmm, did you enter the github username correctly?"
 
@@ -181,7 +171,6 @@ def releases(repo_link):
   try:
     page = requests.get(repo_link)
     soup = BeautifulSoup(page.content, 'html.parser')
-    e = soup.find(class_ = "h4 mb-3").get_text()
-    return e
+    return soup.find(class_ = "h4 mb-3").get_text()
   except AttributeError:
     return "Hmm, you are probably trying to detect a private repo or a repo that does not exist."
