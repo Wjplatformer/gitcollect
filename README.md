@@ -16,7 +16,8 @@ Example:
 
 ```py
 from gitcollect import *
-repo_desc("https://github.com/LogSkele/gitcollect/")
+f = repo_desc("https://github.com/LogSkele/gitcollect/")
+print(f)
 ```
 should get
 ```
